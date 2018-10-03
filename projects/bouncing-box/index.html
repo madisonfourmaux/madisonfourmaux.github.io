@@ -85,11 +85,12 @@
 				speed = speed + 3;
 				position = 0;
 				points = points + 1;
+				color = rgb(198, 255, 26);
 			};
 
 
-			//this calls update every 50 milliseconds
-			setInterval(update, 50);
+			//this calls update every 40 milliseconds
+			setInterval(update, 40);
 			// this calls the handle handleBoxClick function every time the box is clicked on
 			box.on('click', handleBoxClick);
 		})();
