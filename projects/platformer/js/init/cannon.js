@@ -21,7 +21,7 @@
         
         // example: 
         cannon.create.onTop(518);
-        cannon.create.onRight(630);
+        cannon.create.onRight(600);
         
         // ALL YOUR CODE GOES ABOVE HERE ///////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
