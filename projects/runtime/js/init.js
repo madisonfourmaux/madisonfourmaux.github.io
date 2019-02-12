@@ -34,7 +34,7 @@ var init = function (window) {
     // TODO 2 : add background
 
     
-    var help = draw.textfield('MOVES || w: jump | e: flying jump | s: duck | space: fire | q your mom!', 
+    var help = draw.textfield('MOVES || W: Jump | E: Flying Jump | S: Duck | Space: Fire | Q: Self Destruct', 
         '20px Arial',
         '#ccc', 'left');
     help.x = 10;
@@ -71,7 +71,9 @@ var init = function (window) {
     }
     
     // TODO 1 : add a heads-up display to game
-
+    var hud = opspark.makeHud();
+    view.addChild(hud);
+    window.hud = hud;
 
     // TODO 6 : create game manager
 
