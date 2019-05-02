@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////////
 
 function objectValues(object) {
-    
+
     /*
     
     DECLARE an array
@@ -15,16 +15,16 @@ function objectValues(object) {
     RETURN declared array?
     
     */
-    
+
     var arr = [];
-    
+
     for (var key in object) {
         arr.push(object[key]);
     }
-    
+
     return arr;
-    
-} 
+
+}
 
 //////////////////////////////////////////////////////////////////////
 // Function 2 - Keys to String ///////////////////////////////////////
@@ -34,11 +34,24 @@ function keysToString(object) {
 
     /*
     
+    DECLARE an array
+    
     ITERATE through an object's keys
+    
+    PUSH object keys into the array
     
     RETURN object keys in a string, separated by " "
     
     */
+
+    var arr = [];
+
+    for (var key in object) {
+        arr.push(key);
+    }
+
+    arr = arr.join(" ");
+    return arr;
 
 }
 
@@ -47,14 +60,31 @@ function keysToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function valuesToString(object) {
-    
+
     /*
+    
+    DECLARE an array
     
     ITERATE through an object's values
     
-    RETURN object values in a string, separated by " "
+    IF the object key is a string....
+    PUSH object keys into the array
+    
+    RETURN object keys in a string, separated by " "
     
     */
+
+    var arr = [];
+
+    for (var key in object) {
+        if (typeof object[key] === "string") {
+            arr.push(object[key]);
+        }
+    }
+
+    arr = arr.join(" ");
+    return arr;
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -62,7 +92,7 @@ function valuesToString(object) {
 //////////////////////////////////////////////////////////////////////
 
 function arrayOrObject(collection) {
-    
+
     /*
     
     ITERATE through a collection?
@@ -72,7 +102,14 @@ function arrayOrObject(collection) {
     IF collection is an object, RETURN "object"
     
     */
-    
+
+    if (Array.isArray(collection)) {
+        return "array";
+    }
+    if (typeof collection === "object" || Array.isArray(collection) || collection instanceof Date || collection === null) {
+        return "object";
+    }
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -80,17 +117,9 @@ function arrayOrObject(collection) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeWord(string) {
-    
-    /*
-    
-    ITERATE through a string?
-    
-    modify first letter of string (capitalize)
-    
-    RETURN modified string
-    
-    */
-    
+
+    return string.charAt(0).toUpperCase() + string.slice(1);
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -98,17 +127,16 @@ function capitalizeWord(string) {
 //////////////////////////////////////////////////////////////////////
 
 function capitalizeAllWords(string) {
+
+    let arr = string.split(" ");
     
-    /*
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = arr[i][0].toUpperCase() + arr[i].slice(1);
+    }
     
-    ITERATE through a string?
-    
-    modify all letters of string (capitalize)
-    
-    RETURN modified string
-    
-    */
-    
+    arr = arr.join(" ");
+    return arr;
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -117,13 +145,7 @@ function capitalizeAllWords(string) {
 
 function welcomeMessage(object) {
     
-    /*
-    
-    ITERATE through an object
-    
-    RETURN "Welcome" + value of key name
-    
-    */
+    return "Welcome " + capitalizeWord(object.name) + "!";
     
 }
 
@@ -132,15 +154,9 @@ function welcomeMessage(object) {
 //////////////////////////////////////////////////////////////////////
 
 function profileInfo(object) {
-    
-    /*
-    
-    ITERATE through an object
-    
-    RETURN  value of key name " is a " value of key species
-    
-    */
-    
+
+    return capitalizeWord(object.name) + " is a " + capitalizeWord(object.species);
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -149,13 +165,12 @@ function profileInfo(object) {
 
 function maybeNoises(object) {
     
-    /*
+    if (Array.isArray(object.noises) && object.noises.length > 0) {
+        return object.noises.join(" ");
+    } else {
+        return "there are no noises";
+    }
     
-    ITERATE through an object
-    
-    IF 
-    
-    */
     
 }
 
@@ -164,15 +179,27 @@ function maybeNoises(object) {
 //////////////////////////////////////////////////////////////////////
 
 function hasWord(string, word) {
-
+    
+    let str = string.split(' ');
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] === word) {
+            return true;
+        }
+    }
+    
+    return false;
+    
 }
 
 //////////////////////////////////////////////////////////////////////
 // Function 11 - Add Friend //////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-function addFriend (name, object) {
-
+function addFriend(name, object) {
+    
+    object.friends.push(name);
+    return object;
+    
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -180,7 +207,15 @@ function addFriend (name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function isFriend(name, object) {
-
+    
+    if (object.friends) {
+        for (var i = 0; i < object.friends.length; i++) {
+            if (name === object.friends[i]) {
+                return true;
+            } 
+        }
+    }
+    return false; 
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -188,7 +223,7 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
-
+    
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -196,7 +231,10 @@ function nonFriends(name, array) {
 //////////////////////////////////////////////////////////////////////
 
 function updateObject(object, key, value) {
-
+    
+    object[key] = value;
+    return object;
+    
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -204,7 +242,15 @@ function updateObject(object, key, value) {
 //////////////////////////////////////////////////////////////////////
 
 function removeProperties(object, array) {
-
+    
+    for (var i = 0; i < array.length; i++) {
+        for (var key in object) {
+            if (array[i] === key) {
+                delete object[key];
+            }
+        }
+    }
+    
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -212,15 +258,25 @@ function removeProperties(object, array) {
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
-
+    
+    let arr = [];
+    
+    for (var i = 0; i < array.length; i++) {
+        if (arr.indexOf(array[i]) === -1) {
+            arr.push(array[i]);
+        }
+    }
+    
+    return arr;
+    
 }
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
-if((typeof process !== 'undefined') &&
-   (typeof process.versions.node !== 'undefined')) {
+if ((typeof process !== 'undefined') &&
+    (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports.objectValues = objectValues;
     module.exports.keysToString = keysToString;
